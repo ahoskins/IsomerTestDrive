@@ -11,7 +11,7 @@ var Shape = Isomer.Shape;
 var Point = Isomer.Point;
 
 var cube = Shape.Prism(Point.ORIGIN);
-var thin = cube.scale(Point.ORIGIN, 3, 3, 0.5);
+var thin = cube.scale(Point.ORIGIN, 1, 8, 0.2).rotateZ(Point(0.5, 4.0, 0), Math.PI / 1.45);
 
 var blue = new Isomer.Color(50, 60, 160);
 var red = new Isomer.Color(160, 50, 60);
@@ -20,8 +20,8 @@ var red = new Isomer.Color(160, 50, 60);
 // Add some shapes
 //
 iso.add(thin, blue);
-iso.add(thin.translate(0, 0, 1.1), blue);
-iso.add(thin.translate(0, 0, 2.2), blue);
+iso.add(thin.translate(0, 0, 0.5), blue);
+iso.add(thin.translate(0, 0, 1.0), blue);
 
 
 // Store some references to page elements
@@ -30,24 +30,24 @@ var growPile = document.getElementById("grow-pile");
 var up = document.getElementById("up");
 var down = document.getElementById("down");
 
-var nextTopLocation = 3.3;
-var redLocation = -1.1;
+var nextTopLocation = 1.5;
+var redLocation = -0.5;
 
 // Handle events
 //
 growPile.addEventListener("click", function() {
     iso.add(thin.translate(0, 0, nextTopLocation), blue);
-    nextTopLocation += 1.1;
+    nextTopLocation += 0.5;
 });
 
 up.addEventListener("click", function() {
     // Draw from bottom
-    redLocation += 1.1;
+    redLocation += 0.5;
     drawFromBottom();
 });
 
 down.addEventListener("click", function () {
-    redLocation -= 1.1;
+    redLocation -= 0.5;
     drawFromBottom();
 });
 
@@ -63,7 +63,7 @@ var drawFromBottom = function() {
             iso.add(thin.translate(0, 0, start), blue);
         }
 
-        start += 1.1;
+        start += 0.5;
     }
 };
 
@@ -71,8 +71,8 @@ var drawFromBottom = function() {
 //
 // Keep red location at most one position off the boundaries of the shape stack
 setInterval(function () {
-    if (redLocation < -1.1) {
-        redLocation = - 1.1;
+    if (redLocation < -0.5) {
+        redLocation = -0.5;
     }
     if (redLocation > nextTopLocation) {
         redLocation = nextTopLocation;
